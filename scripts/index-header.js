@@ -72,6 +72,7 @@ function initialiseData(){
 	countMax = 6000;
 
 	saveData();
+	syncDisplay();
 }
 
 function savePreferences(){
@@ -110,7 +111,6 @@ function initialise(){
 	if(!loadData()) initialiseData();
 	if(!loadPreferences()) initialisePreferences();
 	
-	syncDisplay();
 	startAutoSave();
 }
 
