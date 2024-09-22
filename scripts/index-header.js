@@ -111,6 +111,8 @@ function initialise(){
 	if(!loadData()) initialiseData();
 	if(!loadPreferences()) initialisePreferences();
 	
+
+	syncDisplay();
 	startAutoSave();
 }
 
