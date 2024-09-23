@@ -103,7 +103,7 @@ window.addEventListener("load", function (root_event) {
 	});
 
 	countInput.addEventListener("change", function (event) {
-		let value = Math.max(0, Math.min(parseInt(event.target.value), countMax));
+		let value = Math.max(0, countMax == -1 ? parseInt(event.target.value) : Math.min(parseInt(event.target.value), countMax));
 
 		event.target.value = value;
 		count = value;
