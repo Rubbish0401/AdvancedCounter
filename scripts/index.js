@@ -104,36 +104,43 @@ window.addEventListener("load", function (root_event) {
 		back.classList.add("page0");
 	});
 
-	countInput.addEventListener("change", function(event){
-		event.target.value = event.target.value >= 0 ? Math.min(countMax, event.target.value) : 0;
-		count = event.target.value;
+	countInput.addEventListener("change", function (event) {
+		let value = Math.max(0, Math.min(parseInt(event.target.value), countMax));
+
+		event.target.value = value;
+		count = value;
 		syncDisplay();
 		saveData();
 	});
 
-	maxInput.addEventListener("change", function(event){
-		countMax = event.target.value;
+	maxInput.addEventListener("change", function (event) {
+		let value = Math.max(-1, parseInt(event.target.value));
+
+		countMax = value;
 		if(countMax >= 0){
 			count = Math.min(countMax, count);
 			countInput.value = count;
 		}
+		
+		if(countMax * (1 + countMax) == 0) displayMode = 0;
 
 		syncDisplay();
 		saveData();
 	});
 
-	autosaveInput.addEventListener("change", function(event){
+	autosaveInput.addEventListener("change", function (event) {
 		AUTO_SAVE_INTERVAL = event.target.value;
 		startAutoSave();
 		savePreferences();
 	});
 
-	longClickInput.addEventListener("change", function(event){
+	longClickInput.addEventListener("change", function (event) {
 		LONG_CLICK_INTERVAL = event.target.value;
 		savePreferences();
 	});
 
-	modeInput.addEventListener("change", function(event){
+	modeInput.addEventListener("change", function (event) {
+		event.target.value = countMax > 0 ? event.target.value : 0;
 		displayMode = parseInt(event.target.value);
 		syncDisplay();
 		savePreferences();
@@ -141,7 +148,7 @@ window.addEventListener("load", function (root_event) {
 
 	// Global
 	let imgBtns = document.getElementsByClassName("img-btn");
-	for(imgBtn of imgBtns) imgBtn.addEventListener("contextmenu", event => event.preventDefault());
+	for (imgBtn of imgBtns) imgBtn.addEventListener("contextmenu", event => event.preventDefault());
 
 	// Initialise
 	initialise();
