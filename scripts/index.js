@@ -113,6 +113,11 @@ window.addEventListener("load", function (root_event) {
 
 	maxInput.addEventListener("change", function(event){
 		countMax = event.target.value;
+		if(countMax >= 0){
+			count = Math.min(countMax, event.target.value);
+			countInput.value = count;
+		}
+
 		syncDisplay();
 		saveData();
 	});
