@@ -140,6 +140,8 @@ window.addEventListener("load", function (root_event) {
 	});
 
 	// Global
+	let imgBtns = document.getElementsByClassName("img-btn");
+	for(imgBtn of imgBtns) imgBtn.addEventListener("contextmenu", event => event.preventDefault());
 
 	// Initialise
 	initialise();
