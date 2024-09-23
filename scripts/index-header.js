@@ -80,9 +80,6 @@ function initialiseData(){
 	count = 0;
 	countMax = -1;
 
-	countInput.value = count;
-	maxInput.value = countMax;
-
 	saveData();
 	syncDisplay();
 }
@@ -136,7 +133,7 @@ function initialise(){
 }
 
 function syncDisplay(){
-	if(countMax != -1 && count > countMax) count = countMax;
+	if(countMax != -1) count = Math.max(0, Math.min(count, countMax));
 	
 	display.classList.remove(`displaymode-${(displayMode + 1) % 4}`);
 	display.classList.remove(`displaymode-${(displayMode + 2) % 4}`);
@@ -152,6 +149,8 @@ function syncDisplay(){
 		rate * (1 - rate) == 0 ? rate : fillChars(String(Math.floor(rate * 10 ** 8) / 10 ** 8), 10, "0", 1),
 		`${[fillChars(String(percentage).split(".")[0], 2, "0", 0), fillChars(String(percentage).split(".")[1], 2, "0", 1)].join(".")}%`,
 	][displayMode];
+	countInput.value = count;
+	maxInput.value = countMax;
 }
 
 function startAutoSave(){

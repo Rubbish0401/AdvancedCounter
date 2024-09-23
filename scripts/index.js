@@ -22,7 +22,6 @@ window.addEventListener("load", function (root_event) {
 	displayPage.addEventListener("click", function (event) {
 		if (!noClickEvent) {
 			count++;
-			countInput.value = count;
 			syncDisplay();
 		}
 
@@ -58,7 +57,6 @@ window.addEventListener("load", function (root_event) {
 	increceBtn.addEventListener("pointerdown", function (event) {
 		longClickStart(null, function () {
 			count++;
-			countInput.value = Math.min(count, countMax);
 			syncDisplay();
 		});
 	});
@@ -80,7 +78,6 @@ window.addEventListener("load", function (root_event) {
 		longClickStart(null, function () {
 			if (count > 0) {
 				count--;
-				countInput.value = Math.max(count, 0);
 				syncDisplay();
 			}
 		});
@@ -116,12 +113,7 @@ window.addEventListener("load", function (root_event) {
 
 	maxInput.addEventListener("change", function (event) {
 		let value = Math.max(-1, parseInt(event.target.value));
-
 		countMax = value;
-		if(countMax >= 0){
-			count = Math.min(countMax, count);
-			countInput.value = count;
-		}
 		
 		if(countMax * (1 + countMax) == 0) displayMode = 0;
 
