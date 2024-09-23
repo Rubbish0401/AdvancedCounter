@@ -57,7 +57,7 @@ window.addEventListener("load", function (root_event) {
 	increceBtn.addEventListener("pointerdown", function (event) {
 		longClickStart(null, function () {
 			count++;
-			countInput.value = count;
+			countInput.value = Math.min(count, countMax);
 			syncDisplay();
 		});
 	});
@@ -79,7 +79,7 @@ window.addEventListener("load", function (root_event) {
 		longClickStart(null, function () {
 			if (count > 0) {
 				count--;
-				countInput.value = count;
+				countInput.value = Math.max(count, 0);
 				syncDisplay();
 			}
 		});
