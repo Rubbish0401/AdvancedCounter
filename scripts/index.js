@@ -22,6 +22,7 @@ window.addEventListener("load", function (root_event) {
 	displayPage.addEventListener("click", function (event) {
 		if (!noClickEvent) {
 			count++;
+			countInput.value = count;
 			syncDisplay();
 		}
 
