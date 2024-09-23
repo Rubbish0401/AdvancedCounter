@@ -117,6 +117,12 @@ body * {
 }
 
 /* Preferences Page */
+#btn-back{
+	position: fixed;
+	left: calc(100vw + 16px);
+	top: 16px;
+}
+
 .preferences-page{
 	display: flex;
 	flex-flow: nowrap;
@@ -127,14 +133,12 @@ body * {
 .preferences-pane{
 	width: 540px;
 	height: 100vh;
+	min-height: 100vh;
 
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	background-color: aqua;
-
+	display: block;
 	padding: 16px;
+	
+	overflow-y: auto;
 }
 
 .preferences-pane > *{
@@ -142,8 +146,40 @@ body * {
 	margin-right: auto;
 }
 
-#btn-back{
-	position: fixed;
-	left: calc(100vw + 16px);
-	top: 16px;
+.preferences-label{
+	width: 100%;
+	height: fit-content;
+
+	display: inline-block;
+	margin-top: 16px;
+
+	font-size: larger;
+	font-weight: 500;
+}
+
+.preferences-label:first-child{
+	margin-top: 0;
+}
+
+.preferences-block{
+	width: 90%;
+	height: fit-content;
+
+	display: block;
+}
+
+.input-label{
+	width: 104px;
+	height: fit-content;
+	display: inline-block;
+
+	text-align: left;
+	vertical-align: middle;
+}
+
+.value-input{
+	width: calc(100% - 112px);
+	height: fit-content;
+
+	margin-left: auto;
 }

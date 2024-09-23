@@ -23,6 +23,12 @@ var decreceBtn;
 var settingsBtn;
 var backBtn;
 
+var countInput;
+var maxInput;
+var autosaveInput;
+var longClickInput;
+var modeInput;
+
 // Other Variables
 var displayMode = 0;
 var count = 0;
@@ -61,6 +67,9 @@ function loadData(){
 		count = data.count;
 		countMax = data.max;
 
+		countInput.value = count;
+		maxInput.value = countMax;
+
 		return true;
 	}
 
@@ -69,7 +78,7 @@ function loadData(){
 
 function initialiseData(){
 	count = 0;
-	countMax = 6000;
+	countMax = -1;
 
 	saveData();
 	syncDisplay();
@@ -92,6 +101,10 @@ function loadPreferences(){
 		LONG_CLICK_INTERVAL = preferences.longclickinterval;
 		displayMode = preferences.displaymode;
 
+		autosaveInput.value = AUTO_SAVE_INTERVAL;
+		longClickInput.value = LONG_CLICK_INTERVAL;
+		modeInput.value = displayMode;
+
 		return true;
 	}
 
@@ -100,7 +113,7 @@ function loadPreferences(){
 
 function initialisePreferences(){
 	AUTO_SAVE_INTERVAL = 10;
-	LONG_CLICK_INTERVAL = 10;
+	LONG_CLICK_INTERVAL = 100;
 	displayMode = 0;
 
 	savePreferences();
@@ -110,7 +123,6 @@ function initialisePreferences(){
 function initialise(){
 	if(!loadData()) initialiseData();
 	if(!loadPreferences()) initialisePreferences();
-	
 
 	syncDisplay();
 	startAutoSave();
@@ -119,28 +131,32 @@ function initialise(){
 function syncDisplay(){
 	if(countMax != -1 && count > countMax) count = countMax;
 	
-	display.classList.remove(`displaymode-${(displayMode + 1) % 3}`);
-	display.classList.remove(`displaymode-${(displayMode + 2) % 3}`);
+	display.classList.remove(`displaymode-${(displayMode + 1) % 4}`);
+	display.classList.remove(`displaymode-${(displayMode + 2) % 4}`);
+	display.classList.remove(`displaymode-${(displayMode + 3) % 4}`);
 	display.classList.add(`displaymode-${displayMode}`);
+
+	let rate = count / countMax;
+	let percentage = Math.floor(rate * 10 ** 4) / 10 ** 2;
 
 	display.innerText = [
 		count,
 		`${count} / ${countMax}`,
-		fillChars(String(Math.floor(count / countMax * 10 ** 8) / 10 ** 8), 10, "0", 1),
+		rate * (1 - rate) == 0 ? rate : fillChars(String(Math.floor(rate * 10 ** 8) / 10 ** 8), 10, "0", 1),
+		`${[fillChars(String(percentage).split(".")[0], 2, "0", 0), fillChars(String(percentage).split(".")[1], 2, "0", 1)].join(".")}%`,
 	][displayMode];
 }
 
 function startAutoSave(){
-	if(!autoSaveInterval){
-		autoSaveInterval = setInterval(function(){
-			saveData();
-			savePreferences();
-		}, AUTO_SAVE_INTERVAL);
-	
-		return true;
+	if(autoSaveInterval){
+		clearInterval(autoSaveInterval);
+		autoSaveInterval = null;
 	}
 
-	return false;
+	autoSaveInterval = setInterval(function(){
+		saveData();
+		savePreferences();
+	}, AUTO_SAVE_INTERVAL);
 }
 
 // Other Functions

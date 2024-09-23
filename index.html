@@ -11,6 +11,10 @@
 		gtag('config', 'G-BH8QRLY634');
 	</script>
 
+	<!-- Viewport and Charset -->
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
+	<meta charset="utf-8" />
+
 	<!-- External Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,9 +45,57 @@
 
 		<div class="page preferences-page">
 			<div class="preferences-pane">
-				<span>
-					近日実装予定
+				<span class="preferences-label">
+					Data Edit
 				</span>
+				<div class="preferences-block">
+					<label for="input-count" class="input-label">
+						Count
+					</label>
+					<input id="input-count" class="value-input" type="number" min="0" step="1">
+
+					<br>
+
+					<label for="input-max" class="input-label">
+						Max
+					</label>
+					<input id="input-max" class="value-input" type="number" min="-1" step="1">
+
+					<br>
+
+					<span>
+						If max equals to -1, there's no limit to count.
+					</span>
+				</div>
+
+				<span class="preferences-label">
+					Preferences
+				</span>
+				<div class="preferences-block">
+					<label for="input-autosave-interval" class="input-label">
+						Autosave
+					</label>
+					<input id="input-autosave-interval" class="value-input" type="number" min="10" step="10">
+
+					<br>
+
+					<label for="input-longclick-interval" class="input-label">
+						Long-click
+					</label>
+					<input id="input-longclick-interval" class="value-input" type="number" min="10" step="1">
+
+					<br>
+
+					<label for="select-mode" class="input-label">
+						Display Mode
+					</label>
+					<select id="select-mode" class="value-input">
+						<option value="0">Just Count</option>
+						<option value="1">Count / Max</option>
+						<option value="2">Value of Count / Max</option>
+						<option value="3">Value of Count / Max as percentage</option>
+					</select>
+				</div>
 			</div>
 
 			<img id="btn-back" class="img-btn" src="src/svg/back.svg">
