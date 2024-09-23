@@ -80,6 +80,9 @@ function initialiseData(){
 	count = 0;
 	countMax = -1;
 
+	countInput.value = count;
+	maxInput.value = countMax;
+
 	saveData();
 	syncDisplay();
 }
@@ -115,6 +118,10 @@ function initialisePreferences(){
 	AUTO_SAVE_INTERVAL = 10;
 	LONG_CLICK_INTERVAL = 100;
 	displayMode = 0;
+
+	autosaveInput.value = AUTO_SAVE_INTERVAL;
+	longClickInput.value = LONG_CLICK_INTERVAL;
+	modeInput.value = displayMode;
 
 	savePreferences();
 }
