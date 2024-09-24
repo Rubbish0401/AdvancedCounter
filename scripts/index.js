@@ -68,9 +68,7 @@ window.addEventListener("load", async function (root_event) {
 		event.stopPropagation();
 	});
 
-	peferencesBtn.addEventListener("mousedown", function (event) {
-		event.stopPropagation();
-	});
+	peferencesBtn.addEventListener("mousedown", event => event.stopPropagation());
 
 	increceBtn.addEventListener("pointerdown", function (event) {
 		longClickStart(null, function () {
@@ -80,18 +78,9 @@ window.addEventListener("load", async function (root_event) {
 			}
 		});
 	});
-
-	increceBtn.addEventListener("mouseup", function (event) {
-		longClickEnd();
-	});
-
-	increceBtn.addEventListener("click", function (event) {
-		event.stopPropagation();
-	});
-
-	increceBtn.addEventListener("pointerout", function (event) {
-		longClickEnd();
-	});
+	increceBtn.addEventListener("mouseup", event => longClickEnd());
+	increceBtn.addEventListener("click", event => event.stopPropagation());
+	increceBtn.addEventListener("pointerout", event => longClickEnd());
 
 
 	decreceBtn.addEventListener("pointerdown", function (event) {
@@ -102,18 +91,9 @@ window.addEventListener("load", async function (root_event) {
 			}
 		});
 	});
-
-	decreceBtn.addEventListener("mouseup", function (event) {
-		longClickEnd();
-	});
-
-	decreceBtn.addEventListener("click", function (event) {
-		event.stopPropagation();
-	});
-
-	decreceBtn.addEventListener("pointerout", function (event) {
-		longClickEnd();
-	});
+	decreceBtn.addEventListener("mouseup", event => longClickEnd());
+	decreceBtn.addEventListener("click", event => event.stopPropagation());
+	decreceBtn.addEventListener("pointerout", event => longClickEnd());
 
 
 	// Preferences Page
