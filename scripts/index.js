@@ -29,7 +29,7 @@ window.addEventListener("load", async function (root_event) {
 	// Customise Elements
 	// Display Page
 	displayPage.addEventListener("click", function (event) {
-		if (!noClickEvent && data["count"] < data["max"]) {
+		if (!noClickEvent && (data["max"] == -1 || data["count"] < data["max"])) {
 			data["count"]++;
 			syncDisplay();
 		}
@@ -74,7 +74,7 @@ window.addEventListener("load", async function (root_event) {
 
 	increceBtn.addEventListener("pointerdown", function (event) {
 		longClickStart(null, function () {
-			if(data["count"] < data["max"]){
+			if(data["max"] == -1 || data["count"] < data["max"]){
 				data["count"]++;
 				syncDisplay();
 			}
