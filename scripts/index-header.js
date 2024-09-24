@@ -59,6 +59,8 @@ function isDataFormatNewest(item){
 }
 
 function saveData(){
+	if(data["count"] == null || isNaN(data["count"])) data["count"] = DEFAULT_DATA["count"];
+	if(data["max"] == null || isNaN(data["max"])) data["max"] = DEFAULT_DATA["max"];
 	data["date"] = (new Date()).toString();
 	localStorage.setItem(KEY.DATA, JSON.stringify(data));
 }
