@@ -133,7 +133,7 @@ window.addEventListener("load", async function (root_event) {
 
 	addInput.addEventListener("keypress", function(event){
 		if(event.key == "Enter"){
-			data["count"] += parseInt(event.target.value);
+			data["count"] += parseInt(event.target.value, 10);
 			event.target.value = 0;
 			syncDisplay();
 			saveData();
