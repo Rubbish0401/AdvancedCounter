@@ -29,8 +29,6 @@ window.addEventListener("load", async function (root_event) {
 	// Customise Elements
 	// Display Page
 	displayPage.addEventListener("click", function (event) {
-		console.log(event);
-
 		if (!noClickEvent && data["count"] < data["max"]) {
 			data["count"]++;
 			syncDisplay();
