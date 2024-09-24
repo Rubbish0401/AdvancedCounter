@@ -55,7 +55,7 @@ function fillChars(text = "", length = 0, char = "0", direction = 0) {
 }
 
 function isDataFormatNewest(item){
-	return new Date(item["date"]) >= new Date(DEFAULT_DATA["date"]);
+	return item != null || new Date(item["date"]) >= new Date(DEFAULT_DATA["date"]);
 }
 
 function saveData(){
@@ -71,7 +71,7 @@ function loadData(){
 }
 
 function isPreferencesFormatNewest(item){
-	return new Date(item["date"]) >= new Date(DEFAULT_PREFERENCES["date"])
+	return item == null || new Date(item["date"]) >= new Date(DEFAULT_PREFERENCES["date"])
 }
 
 function savePreferences(){
