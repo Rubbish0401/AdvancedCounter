@@ -107,7 +107,7 @@ function syncDisplay(){
 		`${[fillChars(String(percentage).split(".")[0], 2, "0", 0), fillChars(String(percentage).split(".")[1], 2, "0", 1)].join(".")}%`,
 	][preferences["appearance"]["display-mode"]];
 	countInput.value = data["count"] || DEFAULT_DATA["count"];
-	maxInput.value = data["max"] || DEFAULT_DATA["max"];
+	maxInput.value = (data["max"] + 1 || DEFAULT_DATA["max"] + 1) - 1;
 }
 
 function startAutoSave(){
