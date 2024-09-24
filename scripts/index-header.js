@@ -36,6 +36,8 @@ var modeInput;
 
 // Other Variables
 
+var formatIsNewest;
+
 // Temporary-use Variables
 var longClickCount = 0;
 var longClickInterval;
@@ -60,9 +62,9 @@ function saveData(){
 }
 
 function loadData(){
-	let item = localStorage.getItem(KEY.DATA);
-	let json = JSON.parse(item);
-	data = new Date(json["date"]) >= new Date(DEFAULT_DATA["date"]) ? json : DEFAULT_DATA;
+	let item = JSON.parse(localStorage.getItem(KEY.DATA));
+	formatIsNewest = new Date(json["date"]) >= new Date(DEFAULT_DATA["date"]);
+	data = formatIsNewest ? json : DEFAULT_DATA;
 }
 
 function savePreferences(){
@@ -71,7 +73,7 @@ function savePreferences(){
 
 function loadPreferences(){
 	let item = localStorage.getItem(KEY.PREFERENCES);
-	preferences = JSON.parse(item) || DEFAULT_PREFERENCES;
+	preferences = formatIsNewest ? JSON.parse(item) : DEFAULT_PREFERENCES;
 }
 
 // 
