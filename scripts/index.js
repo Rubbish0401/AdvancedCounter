@@ -47,7 +47,7 @@ window.addEventListener("load", async function (root_event) {
 	});
 
 	displayPage.addEventListener("pointerdown", function (event) {
-		longClickStart(preferences["longclick"]["end"] / preferences["longclick"]["interval"], void 0, function () {
+		if((event.pointerType == "mouse" && event.button == 0) || event.pointerType == "touch" || event.pointerType == "pen") longClickStart(preferences["longclick"]["end"] / preferences["longclick"]["interval"], void 0, function () {
 			preferences["appearance"]["display-mode"] = data["max"] > 0 ? (preferences["appearance"]["display-mode"] + 1) % 4 : 0;
 			modeInput.value = preferences["appearance"]["display-mode"];
 			syncDisplay();
