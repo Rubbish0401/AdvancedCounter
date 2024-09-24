@@ -55,12 +55,14 @@ function fillChars(text = "", length = 0, char = "0", direction = 0) {
 }
 
 function saveData(){
+	//data["date"] = (new Date()).toString();
 	localStorage.setItem(KEY.DATA, JSON.stringify(data));
 }
 
 function loadData(){
 	let item = localStorage.getItem(KEY.DATA);
-	data = JSON.parse(item) || DEFAULT_DATA;
+	let json = JSON.parse(item);
+	data = new Date(json["date"]) >= new Date(DEFAULT_DATA["date"]) ? json : DEFAULT_DATA;
 }
 
 function savePreferences(){
