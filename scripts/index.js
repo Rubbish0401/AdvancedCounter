@@ -29,12 +29,23 @@ window.addEventListener("load", async function (root_event) {
 	// Customise Elements
 	// Display Page
 	displayPage.addEventListener("click", function (event) {
-		if (!noClickEvent) {
+		console.log(event);
+
+		if (!noClickEvent && data["count"] < data["max"]) {
 			data["count"]++;
 			syncDisplay();
 		}
 
 		noClickEvent = false;
+	});
+
+	displayPage.addEventListener("contextmenu", event => {
+		if(!noClickEvent && event.pointerType == "mouse" && data["count"] > 0){
+			data["count"]--;
+			syncDisplay();
+		}
+
+		event.preventDefault();
 	});
 
 	displayPage.addEventListener("pointerdown", function (event) {
@@ -65,8 +76,10 @@ window.addEventListener("load", async function (root_event) {
 
 	increceBtn.addEventListener("pointerdown", function (event) {
 		longClickStart(null, function () {
-			data["count"]++;
-			syncDisplay();
+			if(data["count"] < data["max"]){
+				data["count"]++;
+				syncDisplay();
+			}
 		});
 	});
 
@@ -168,8 +181,6 @@ window.addEventListener("load", async function (root_event) {
 	});
 
 	// Global
-	let imgBtns = document.getElementsByClassName("img-btn");
-	for (imgBtn of imgBtns) imgBtn.addEventListener("contextmenu", event => event.preventDefault());
 
 	// Initialise
 	initialise();
