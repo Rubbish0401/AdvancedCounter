@@ -1,0 +1,17 @@
+{
+	"autosave": {
+		"interval": 100
+	},
+
+	"longclick": {
+		"interval": 10,
+		"start": 500,
+		"end": 1000
+	},
+
+	"appearance": {
+		"display-mode": 0,
+		"background-colour": "hsl(105, 80%, 95%)",
+		"font-colour": "#5f6368"
+	}
+}
