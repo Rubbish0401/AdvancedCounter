@@ -8,4 +8,12 @@
 		height: calc(100vh - 80px);
 		min-height: calc(100vh - 80px);
 	}
+
+	#input-count{
+		width: calc(100% - 112px - 64px)
+	}
+	
+	#input-add{
+		width: 60px;
+	}
 }
