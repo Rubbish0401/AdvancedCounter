@@ -4,30 +4,13 @@ const KEY = {
 	PREFERENCES: "KjwZOQj3cxWXhGE7OyuYAZMh",
 };
 
-const DEFAULT_DATA = {
-	"max": -1,
-	"count": 0
-};
-
-const DEFAULT_PREFERENCES = {
-	"autosave": {
-		"interval": 100
-	},
-
-	"longclick": {
-		"interval": 10,
-		"start": 500,
-		"end": 1000
-	},
-
-	"appearance": {
-		"display-mode": 0,
-		"background-colour": "hsl(105, 80%, 95%)",
-		"font-colour": "#5f6368"
-	}
-};
+const DEFAULT_DATA_PATH = "https://rubbish0401.github.io/AdvancedCounter/data/default-data.json";
+const DEFAULT_PREFERENCES_PATH = "https://rubbish0401.github.io/AdvancedCounter/data/default-preferences.json";
 
 // Data and Preferences
+var DEFAULT_PREFERENCES;
+var DEFAULT_DATA;
+
 var data;
 var preferences;
 

@@ -1,4 +1,10 @@
-window.addEventListener("load", function (root_event) {
+window.addEventListener("load", async function (root_event) {
+	let defData = await (await fetch(DEFAULT_DATA_PATH)).json();
+	let defPreferences = await (await fetch(DEFAULT_PREFERENCES_PATH)).json();
+
+	DEFAULT_DATA = defData;
+	DEFAULT_PREFERENCES = defPreferences;
+
 	// Get Elements
 	back = document.getElementById("back");
 
