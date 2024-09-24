@@ -55,7 +55,8 @@ function fillChars(text = "", length = 0, char = "0", direction = 0) {
 }
 
 function isDataFormatNewest(item){
-	return item != null || new Date(item["date"]) >= new Date(DEFAULT_DATA["date"]);
+	if(item == null) return false;
+	return new Date(item["date"]) >= new Date(DEFAULT_DATA["date"]);
 }
 
 function saveData(){
@@ -67,11 +68,19 @@ function saveData(){
 
 function loadData(){
 	let item = JSON.parse(localStorage.getItem(KEY.DATA));
-	data =  isDataFormatNewest(item) ? item : DEFAULT_DATA;
+	if(item != null){
+		if(item["count"] == null || isNaN(item["count"])) item["count"] = DEFAULT_DATA["count"];
+		if(item["max"] == null || isNaN(item["max"])) item["max"] = DEFAULT_DATA["max"];
+	}else{
+		item = DEFAULT_DATA;
+	}
+
+	data = item;
 }
 
 function isPreferencesFormatNewest(item){
-	return item == null || new Date(item["date"]) >= new Date(DEFAULT_PREFERENCES["date"])
+	if(item == null) return false;
+	return new Date(item["date"]) >= new Date(DEFAULT_PREFERENCES["date"])
 }
 
 function savePreferences(){
