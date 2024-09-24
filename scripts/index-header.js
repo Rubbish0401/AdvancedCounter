@@ -57,14 +57,14 @@ function fillChars(text = "", length = 0, char = "0", direction = 0) {
 }
 
 function saveData(){
-	//data["date"] = (new Date()).toString();
+	data["date"] = (new Date()).toString();
 	localStorage.setItem(KEY.DATA, JSON.stringify(data));
 }
 
 function loadData(){
 	let item = JSON.parse(localStorage.getItem(KEY.DATA));
-	formatIsNewest = new Date(json["date"]) >= new Date(DEFAULT_DATA["date"]);
-	data = formatIsNewest ? json : DEFAULT_DATA;
+	formatIsNewest = new Date(item["date"]) >= new Date(DEFAULT_DATA["date"]);
+	data = formatIsNewest ? item : DEFAULT_DATA;
 }
 
 function savePreferences(){
