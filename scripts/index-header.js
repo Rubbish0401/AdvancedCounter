@@ -36,8 +36,6 @@ var modeInput;
 
 // Other Variables
 
-var formatIsNewest;
-
 // Temporary-use Variables
 var longClickCount = 0;
 var longClickInterval;
@@ -56,24 +54,36 @@ function fillChars(text = "", length = 0, char = "0", direction = 0) {
 	return (direction == 0 ? filler : "") + text + (direction == 1 ? filler : "");
 }
 
+function isDataFormatNewest(item){
+	return new Date(item["date"]) >= new Date(DEFAULT_DATA["date"]);
+}
+
 function saveData(){
+	if(!isDataFormatNewest(data)) data = DEFAULT_DATA;
 	data["date"] = (new Date()).toString();
+	
 	localStorage.setItem(KEY.DATA, JSON.stringify(data));
 }
 
 function loadData(){
 	let item = JSON.parse(localStorage.getItem(KEY.DATA));
-	formatIsNewest = new Date(item["date"]) >= new Date(DEFAULT_DATA["date"]);
-	data = formatIsNewest ? item : DEFAULT_DATA;
+	data =  isDataFormatNewest(item) ? item : DEFAULT_DATA;
+}
+
+function isPreferencesFormatNewest(item){
+	return new Date(item["date"]) >= new Date(DEFAULT_PREFERENCES["date"])
 }
 
 function savePreferences(){
+	if(!isPreferencesFormatNewest(preferences)) preferences = DEFAULT_PREFERENCES;
+	preferences["date"] = (new Date()).toString();
+
 	localStorage.setItem(KEY.PREFERENCES, JSON.stringify(preferences));
 }
 
 function loadPreferences(){
-	let item = localStorage.getItem(KEY.PREFERENCES);
-	preferences = formatIsNewest ? JSON.parse(item) : DEFAULT_PREFERENCES;
+	let item = JSON.parse(localStorage.getItem(KEY.PREFERENCES));
+	preferences = isPreferencesFormatNewest(item) ? item : DEFAULT_PREFERENCES;
 }
 
 // 
