@@ -59,9 +59,7 @@ function isDataFormatNewest(item){
 }
 
 function saveData(){
-	if(!isDataFormatNewest(data)) data = DEFAULT_DATA;
 	data["date"] = (new Date()).toString();
-	
 	localStorage.setItem(KEY.DATA, JSON.stringify(data));
 }
 
