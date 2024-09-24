@@ -164,6 +164,22 @@ body * {
 	margin-top: 0;
 }
 
+.preferences-label-small{
+	width: 95%;
+	height: fit-content;
+
+	display: inline-block;
+	margin-top: 4px;
+
+	font-size: medium;
+	font-weight: 500;
+}
+
+.preferences-label-small:first-child{
+	margin-top: 0;
+}
+
+
 .preferences-block{
 	width: 90%;
 	height: fit-content;
@@ -185,4 +201,12 @@ body * {
 	height: fit-content;
 
 	margin-left: auto;
+}
+
+#input-count{
+	width: calc(100% - 112px - 128px)
+}
+
+#input-add{
+	width: 124px;
 }

@@ -4,13 +4,32 @@ const KEY = {
 	PREFERENCES: "KjwZOQj3cxWXhGE7OyuYAZMh",
 };
 
-const LONG_CLICK_THERESHOULD = {
-	START: 500,
-	END: 1000,
+const DEFAULT_DATA = {
+	"max": -1,
+	"count": 0
 };
 
-var LONG_CLICK_INTERVAL = 10;
-var AUTO_SAVE_INTERVAL = 100;
+const DEFAULT_PREFERENCES = {
+	"autosave": {
+		"interval": 100
+	},
+
+	"longclick": {
+		"interval": 10,
+		"start": 500,
+		"end": 1000
+	},
+
+	"appearance": {
+		"display-mode": 0,
+		"background-colour": "hsl(105, 80%, 95%)",
+		"font-colour": "#5f6368"
+	}
+};
+
+// Data and Preferences
+var data;
+var preferences;
 
 // Elements
 var back;
@@ -24,15 +43,15 @@ var settingsBtn;
 var backBtn;
 
 var countInput;
+var addInput;
 var maxInput;
 var autosaveInput;
-var longClickInput;
+var longClickIntervalInput;
+var longClickStartInput;
+var longClickEndInput;
 var modeInput;
 
 // Other Variables
-var displayMode = 0;
-var count = 0;
-var countMax;
 
 // Temporary-use Variables
 var longClickCount = 0;
@@ -53,104 +72,59 @@ function fillChars(text = "", length = 0, char = "0", direction = 0) {
 }
 
 function saveData(){
-	let data = {
-		count: count,
-		max: countMax,
-	};
-
 	localStorage.setItem(KEY.DATA, JSON.stringify(data));
 }
 
 function loadData(){
-	let data = JSON.parse(localStorage.getItem(KEY.DATA));
-	if(data){
-		count = data.count;
-		countMax = data.max;
-
-		countInput.value = count;
-		maxInput.value = countMax;
-
-		return true;
-	}
-
-	return false;
-}
-
-function initialiseData(){
-	count = 0;
-	countMax = -1;
-
-	saveData();
-	syncDisplay();
+	let item = localStorage.getItem(KEY.DATA);
+	data = JSON.parse(item) || DEFAULT_DATA;
 }
 
 function savePreferences(){
-	let preferences = {
-		autosaveinterval: AUTO_SAVE_INTERVAL,
-		longclickinterval: LONG_CLICK_INTERVAL,
-		displaymode: displayMode
-	};
-
 	localStorage.setItem(KEY.PREFERENCES, JSON.stringify(preferences));
 }
 
 function loadPreferences(){
-	let preferences = JSON.parse(localStorage.getItem(KEY.PREFERENCES));
-	if(preferences){
-		AUTO_SAVE_INTERVAL = preferences.autosaveinterval;
-		LONG_CLICK_INTERVAL = preferences.longclickinterval;
-		displayMode = preferences.displaymode;
-
-		autosaveInput.value = AUTO_SAVE_INTERVAL;
-		longClickInput.value = LONG_CLICK_INTERVAL;
-		modeInput.value = displayMode;
-
-		return true;
-	}
-
-	return false;
-}
-
-function initialisePreferences(){
-	AUTO_SAVE_INTERVAL = 10;
-	LONG_CLICK_INTERVAL = 100;
-	displayMode = 0;
-
-	autosaveInput.value = AUTO_SAVE_INTERVAL;
-	longClickInput.value = LONG_CLICK_INTERVAL;
-	modeInput.value = displayMode;
-
-	savePreferences();
+	let item = localStorage.getItem(KEY.PREFERENCES);
+	preferences = JSON.parse(item) || DEFAULT_PREFERENCES;
 }
 
 // 
 function initialise(){
-	if(!loadData()) initialiseData();
-	if(!loadPreferences()) initialisePreferences();
+	loadData();
+	loadPreferences();
+
+	addInput.value = 0;
+
+	autosaveInput.value = preferences["autosave"]["interval"] || DEFAULT_PREFERENCES["autosave"]["interval"];
+	longClickIntervalInput.value = preferences["longclick"]["interval"] || DEFAULT_PREFERENCES["longclick"]["interval"];
+	longClickStartInput.value = preferences["longclick"]["start"] || DEFAULT_PREFERENCES["longclick"]["start"];
+	longClickEndInput.value = preferences["longclick"]["end"] || DEFAULT_PREFERENCES["longclick"]["end"];
+	modeInput.value = preferences["appearance"]["display-mode"] || DEFAULT_PREFERENCES["appearance"]["display-mode"];
 
 	syncDisplay();
 	startAutoSave();
 }
 
 function syncDisplay(){
-	if(countMax != -1) count = Math.max(0, Math.min(count, countMax));
+	if(data["max"] != -1) data["count"] = Math.max(0, Math.min(data["count"], data["max"]));
 	
-	display.classList.remove(`displaymode-${(displayMode + 1) % 4}`);
-	display.classList.remove(`displaymode-${(displayMode + 2) % 4}`);
-	display.classList.remove(`displaymode-${(displayMode + 3) % 4}`);
-	display.classList.add(`displaymode-${displayMode}`);
+	display.classList.remove(`displaymode-${(preferences["appearance"]["display-mode"] + 1) % 4}`);
+	display.classList.remove(`displaymode-${(preferences["appearance"]["display-mode"] + 2) % 4}`);
+	display.classList.remove(`displaymode-${(preferences["appearance"]["display-mode"] + 3) % 4}`);
+	display.classList.add(`displaymode-${preferences["appearance"]["display-mode"]}`);
 
-	let rate = count / countMax;
+	let rate = data["count"] / data["max"];
 	let percentage = Math.floor(rate * 10 ** 4) / 10 ** 2;
 
 	display.innerText = [
-		count,
-		`${count} / ${countMax}`,
+		data["count"],
+		`${data["count"]} / ${data["max"]}`,
 		rate * (1 - rate) == 0 ? rate : fillChars(String(Math.floor(rate * 10 ** 8) / 10 ** 8), 10, "0", 1),
 		`${[fillChars(String(percentage).split(".")[0], 2, "0", 0), fillChars(String(percentage).split(".")[1], 2, "0", 1)].join(".")}%`,
-	][displayMode];
-	countInput.value = count;
-	maxInput.value = countMax;
+	][preferences["appearance"]["display-mode"]];
+	countInput.value = data["count"] || DEFAULT_DATA["count"];
+	maxInput.value = data["max"] || DEFAULT_DATA["max"];
 }
 
 function startAutoSave(){
@@ -162,7 +136,7 @@ function startAutoSave(){
 	autoSaveInterval = setInterval(function(){
 		saveData();
 		savePreferences();
-	}, AUTO_SAVE_INTERVAL);
+	}, preferences["autosave"]["interval"]);
 }
 
 // Other Functions
@@ -170,14 +144,14 @@ function longClickStart(limit, func, endFunc){
 	longClickCount = 0;
 	if(!longClickInterval) longClickInterval = setInterval(function(){
 		longClickCounting(limit, func, endFunc);
-	}, LONG_CLICK_INTERVAL);
+	}, preferences["longclick"]["interval"]);
 }
 
 function longClickCounting(limit, func, endFunc){
 	longClickCount++;
 	if(func) func();
 
-	if(longClickCount >= LONG_CLICK_THERESHOULD.START / LONG_CLICK_INTERVAL) noClickEvent = true;
+	if(longClickCount >= preferences["longclick"]["start"] / preferences["longclick"]["interval"]) noClickEvent = true;
 
 	if(limit != null && longClickCount >= limit){
 		if(endFunc) endFunc();

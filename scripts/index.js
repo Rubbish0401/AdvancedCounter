@@ -11,9 +11,12 @@ window.addEventListener("load", function (root_event) {
 	backBtn = document.getElementById("btn-back");
 
 	countInput = document.getElementById("input-count");
+	addInput = document.getElementById("input-add");
 	maxInput = document.getElementById("input-max");
 	autosaveInput = document.getElementById("input-autosave-interval");
-	longClickInput = document.getElementById("input-longclick-interval");
+	longClickIntervalInput = document.getElementById("input-longclick-interval");
+	longClickStartInput = document.getElementById("input-longclick-start");
+	longClickEndInput = document.getElementById("input-longclick-end");
 	modeInput = document.getElementById("select-mode");
 
 
@@ -21,7 +24,7 @@ window.addEventListener("load", function (root_event) {
 	// Display Page
 	displayPage.addEventListener("click", function (event) {
 		if (!noClickEvent) {
-			count++;
+			data["count"]++;
 			syncDisplay();
 		}
 
@@ -29,9 +32,9 @@ window.addEventListener("load", function (root_event) {
 	});
 
 	displayPage.addEventListener("pointerdown", function (event) {
-		longClickStart(LONG_CLICK_THERESHOULD.END / LONG_CLICK_INTERVAL, void 0, function () {
-			displayMode = countMax > 0 ? (displayMode + 1) % 4 : 0;
-			modeInput.value = displayMode;
+		longClickStart(preferences["longclick"]["end"] / preferences["longclick"]["interval"], void 0, function () {
+			preferences["appearance"]["display-mode"] = data["max"] > 0 ? (preferences["appearance"]["display-mode"] + 1) % 4 : 0;
+			modeInput.value = preferences["appearance"]["display-mode"];
 			syncDisplay();
 		});
 	});
@@ -56,7 +59,7 @@ window.addEventListener("load", function (root_event) {
 
 	increceBtn.addEventListener("pointerdown", function (event) {
 		longClickStart(null, function () {
-			count++;
+			data["count"]++;
 			syncDisplay();
 		});
 	});
@@ -76,8 +79,8 @@ window.addEventListener("load", function (root_event) {
 
 	decreceBtn.addEventListener("pointerdown", function (event) {
 		longClickStart(null, function () {
-			if (count > 0) {
-				count--;
+			if (data["count"] > 0) {
+				data["count"]--;
 				syncDisplay();
 			}
 		});
@@ -103,38 +106,57 @@ window.addEventListener("load", function (root_event) {
 	});
 
 	countInput.addEventListener("change", function (event) {
-		let value = Math.max(0, countMax == -1 ? parseInt(event.target.value) : Math.min(parseInt(event.target.value), countMax));
+		let value = Math.max(0, data["max"] == -1 ? parseInt(event.target.value) : Math.min(parseInt(event.target.value), data["max"]));
 
 		event.target.value = value;
-		count = value;
+		data["count"] = value;
 		syncDisplay();
 		saveData();
 	});
 
+	addInput.addEventListener("keypress", function(event){
+		if(event.key == "Enter"){
+			data["count"] += parseInt(event.target.value);
+			event.target.value = 0;
+			syncDisplay();
+			saveData();
+		}
+	});
+
 	maxInput.addEventListener("change", function (event) {
 		let value = Math.max(-1, parseInt(event.target.value));
-		countMax = value;
-		
-		if(countMax * (1 + countMax) == 0) displayMode = 0;
+		data["max"] = value;
+
+		if (data["max"] * (1 + data["max"]) == 0) preferences["appearance"]["display-mode"] = 0;
 
 		syncDisplay();
 		saveData();
 	});
 
 	autosaveInput.addEventListener("change", function (event) {
-		AUTO_SAVE_INTERVAL = event.target.value;
+		preferences["autosave"]["interval"] = parseInt(event.target.value);
 		startAutoSave();
 		savePreferences();
 	});
 
-	longClickInput.addEventListener("change", function (event) {
-		LONG_CLICK_INTERVAL = event.target.value;
+	longClickIntervalInput.addEventListener("change", function (event) {
+		preferences["longclick"]["interval"] = parseInt(event.target.value);
+		savePreferences();
+	});
+
+	longClickStartInput.addEventListener("change", function (event) {
+		preferences["longclick"]["start"] = parseInt(event.target.value);
+		savePreferences();
+	});
+
+	longClickEndInput.addEventListener("change", function (event) {
+		preferences["longclick"]["end"] = parseInt(event.target.value);
 		savePreferences();
 	});
 
 	modeInput.addEventListener("change", function (event) {
-		event.target.value = countMax > 0 ? event.target.value : 0;
-		displayMode = parseInt(event.target.value);
+		event.target.value = data["max"] > 0 ? event.target.value : 0;
+		preferences["appearance"]["display-mode"] = parseInt(event.target.value);
 		syncDisplay();
 		savePreferences();
 	});
