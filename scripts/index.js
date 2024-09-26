@@ -120,7 +120,6 @@ window.addEventListener("load", async function (root_event) {
 			saveData();
 		}
 	});
-	addInput.addEventListener("keyup", event => { if(event.key == "Enter") alert("Enter") });
 
 	maxInput.addEventListener("change", function (event) {
 		let value = Math.max(-1, parseInt(event.target.value));
