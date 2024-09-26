@@ -165,10 +165,12 @@ window.addEventListener("load", async function (root_event) {
 
 			if(keyIndex != -1 && [isNaN(max) || value < max, isNaN(min) || value > min][keyIndex]){
 				event.target.value = value + (-1) ** keyIndex;
-				if(event.target != addInput) event.target.dispatchEvent(new InputEvent("change"));
-
 				event.preventDefault();
 			}
+		});
+
+		input.addEventListener("keyup", event => {
+			if(["ArrowUp", "ArrowDown"].indexOf(event.key) != -1 && event.target != addInput) event.target.dispatchEvent(new InputEvent("change"));
 		});
 	}
 

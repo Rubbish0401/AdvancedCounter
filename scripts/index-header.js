@@ -106,16 +106,16 @@ function initialise(){
 
 	addInput.value = 0;
 
-	autosaveInput.value = preferences["autosave"]["interval"] || DEFAULT_PREFERENCES["autosave"]["interval"];
+	autosaveInput.value = !isNaN(preferences["autosave"]["interval"]) ? preferences["autosave"]["interval"] : DEFAULT_PREFERENCES["autosave"]["interval"];
 
-	longClickIntervalInput.value = preferences["longclick"]["interval"] || DEFAULT_PREFERENCES["longclick"]["interval"];
-	longClickStartInput.value = preferences["longclick"]["start"] || DEFAULT_PREFERENCES["longclick"]["start"];
-	longClickEndInput.value = preferences["longclick"]["end"] || DEFAULT_PREFERENCES["longclick"]["end"];
+	longClickIntervalInput.value = !isNaN(preferences["longclick"]["interval"]) ? preferences["longclick"]["interval"] : DEFAULT_PREFERENCES["longclick"]["interval"];
+	longClickStartInput.value = !isNaN(preferences["longclick"]["start"]) ? preferences["longclick"]["start"] : DEFAULT_PREFERENCES["longclick"]["start"];
+	longClickEndInput.value = !isNaN(preferences["longclick"]["end"]) ? preferences["longclick"]["end"] : DEFAULT_PREFERENCES["longclick"]["end"];
 
 	longClickStartInput.max = longClickEndInput.value;
 	longClickEndInput.min = longClickStartInput.value;
 	
-	modeInput.value = preferences["appearance"]["display-mode"] || DEFAULT_PREFERENCES["appearance"]["display-mode"];
+	modeInput.value = !isNaN(preferences["appearance"]["display-mode"]) ? preferences["appearance"]["display-mode"] : DEFAULT_PREFERENCES["appearance"]["display-mode"];
 
 	syncDisplay();
 	startAutoSave();
@@ -138,8 +138,8 @@ function syncDisplay(){
 		rate * (1 - rate) == 0 ? rate : fillChars(String(Math.floor(rate * 10 ** 8) / 10 ** 8), 10, "0", 1),
 		`${[fillChars(String(percentage).split(".")[0], 2, "0", 0), fillChars(String(percentage).split(".")[1], 2, "0", 1)].join(".")}%`,
 	][preferences["appearance"]["display-mode"]];
-	countInput.value = data["count"] || DEFAULT_DATA["count"];
-	maxInput.value = data["max"] != null ? data["max"] : DEFAULT_DATA["max"];
+	countInput.value = !isNaN(data["count"]) ? data["count"] : DEFAULT_DATA["count"];
+	maxInput.value = !isNaN(data["max"]) ? data["max"] : DEFAULT_DATA["max"];
 }
 
 function startAutoSave(){
