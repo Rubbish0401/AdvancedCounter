@@ -122,6 +122,8 @@ function initialise(){
 }
 
 function syncDisplay(){
+	if(isNaN(data["count"])) data["count"] = DEFAULT_DATA["count"];
+	if(isNaN(data["max"])) data["max"] = DEFAULT_DATA["max"];
 	if(data["max"] != -1) data["count"] = Math.max(0, Math.min(data["count"], data["max"]));
 	
 	display.classList.remove(`displaymode-${(preferences["appearance"]["display-mode"] + 1) % 4}`);
@@ -138,8 +140,8 @@ function syncDisplay(){
 		rate * (1 - rate) == 0 ? rate : fillChars(String(Math.floor(rate * 10 ** 8) / 10 ** 8), 10, "0", 1),
 		`${[fillChars(String(percentage).split(".")[0], 2, "0", 0), fillChars(String(percentage).split(".")[1], 2, "0", 1)].join(".")}%`,
 	][preferences["appearance"]["display-mode"]];
-	countInput.value = !isNaN(data["count"]) ? data["count"] : DEFAULT_DATA["count"];
-	maxInput.value = !isNaN(data["max"]) ? data["max"] : DEFAULT_DATA["max"];
+	countInput.value = data["count"];
+	maxInput.value = data["max"];
 }
 
 function startAutoSave(){
