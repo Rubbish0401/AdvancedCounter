@@ -95,6 +95,10 @@ function loadPreferences(){
 	preferences = isPreferencesFormatNewest(item) ? item : DEFAULT_PREFERENCES;
 }
 
+function isTouchable(){
+	return typeof window.ontouchstart == "object";
+}
+
 // 
 function initialise(){
 	loadData();
