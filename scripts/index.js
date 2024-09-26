@@ -79,7 +79,7 @@ window.addEventListener("load", async function (root_event) {
 		});
 	});
 	increceBtn.addEventListener("mouseup", event => longClickEnd());
-	increceBtn.addEventListener("click", event => event.stopPropagation());
+	increceBtn.addEventListener("click", event => { displayPage.dispatchEvent(new PointerEvent("click")); event.stopPropagation() });
 	increceBtn.addEventListener("pointerout", event => longClickEnd());
 
 
@@ -92,7 +92,7 @@ window.addEventListener("load", async function (root_event) {
 		});
 	});
 	decreceBtn.addEventListener("mouseup", event => longClickEnd());
-	decreceBtn.addEventListener("click", event => event.stopPropagation());
+	decreceBtn.addEventListener("click", event => { displayPage.dispatchEvent(new PointerEvent("contextmenu", { pointerType: "mouse"})); event.stopPropagation() });
 	decreceBtn.addEventListener("pointerout", event => longClickEnd());
 
 
