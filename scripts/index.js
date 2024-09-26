@@ -158,6 +158,21 @@ window.addEventListener("load", async function (root_event) {
 		savePreferences();
 	});
 
+	let inputElements = [countInput, addInput, maxInput, autosaveInput, longClickIntervalInput, longClickStartInput, longClickEndInput];
+	let inputValues = [];
+	for(key in inputElements){
+		inputElements[key].addEventListener("keydown", event => {
+			let keyIndex =  ["ArrowUp", "ArrowDown"].indexOf(event.key);
+			let value = parseInt(event.target.value);
+			let min = parseInt(event.target.min), max = parseInt(event.target.max);
+
+			if(keyIndex != -1 && (isNaN(min) || value > min) && (isNaN(max) || value < max)){
+				event.target.value = value + (-1) ** keyIndex;
+				event.preventDefault();
+			}
+		});
+	}
+
 	// Global
 
 	// Initialise
