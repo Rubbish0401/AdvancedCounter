@@ -38,7 +38,7 @@ window.addEventListener("load", async function (root_event) {
 	});
 
 	displayPage.addEventListener("contextmenu", event => {
-		if(!noClickEvent && event.pointerType == "mouse" && data["count"] > 0){
+		if (!noClickEvent && event.pointerType == "mouse" && data["count"] > 0) {
 			data["count"]--;
 			syncDisplay();
 		}
@@ -47,7 +47,7 @@ window.addEventListener("load", async function (root_event) {
 	});
 
 	displayPage.addEventListener("pointerdown", function (event) {
-		if((event.pointerType == "mouse" && event.button == 0) || event.pointerType == "touch" || event.pointerType == "pen") longClickStart(preferences["longclick"]["end"] / preferences["longclick"]["interval"], void 0, function () {
+		if ((event.pointerType == "mouse" && event.button == 0) || event.pointerType == "touch" || event.pointerType == "pen") longClickStart(preferences["longclick"]["end"] / preferences["longclick"]["interval"], void 0, function () {
 			preferences["appearance"]["display-mode"] = data["max"] > 0 ? (preferences["appearance"]["display-mode"] + 1) % 4 : 0;
 			modeInput.value = preferences["appearance"]["display-mode"];
 			syncDisplay();
@@ -72,7 +72,7 @@ window.addEventListener("load", async function (root_event) {
 
 	increceBtn.addEventListener("pointerdown", function (event) {
 		longClickStart(null, function () {
-			if(data["max"] == -1 || data["count"] < data["max"]){
+			if (data["max"] == -1 || data["count"] < data["max"]) {
 				data["count"]++;
 				syncDisplay();
 			}
@@ -111,8 +111,8 @@ window.addEventListener("load", async function (root_event) {
 		saveData();
 	});
 
-	addInput.addEventListener("keyup", function(event){
-		if(event.key == "Enter"){
+	addInput.addEventListener("keyup", function (event) {
+		if (event.key == "Enter") {
 			data["count"] += parseInt(event.target.value, 10);
 			event.target.value = 0;
 			syncDisplay();
@@ -135,7 +135,6 @@ window.addEventListener("load", async function (root_event) {
 		startAutoSave();
 		savePreferences();
 	});
-
 	longClickIntervalInput.addEventListener("change", function (event) {
 		preferences["longclick"]["interval"] = parseInt(event.target.value);
 		savePreferences();
@@ -158,16 +157,16 @@ window.addEventListener("load", async function (root_event) {
 		savePreferences();
 	});
 
-	let inputElements = [countInput, addInput, maxInput, autosaveInput, longClickIntervalInput, longClickStartInput, longClickEndInput];
-	let inputValues = [];
-	for(key in inputElements){
-		inputElements[key].addEventListener("keydown", event => {
-			let keyIndex =  ["ArrowUp", "ArrowDown"].indexOf(event.key);
+	for (input of [countInput, addInput, maxInput, autosaveInput, longClickIntervalInput, longClickStartInput, longClickEndInput]) {
+		input.addEventListener("keydown", event => {
+			let keyIndex = ["ArrowUp", "ArrowDown"].indexOf(event.key);
 			let value = parseInt(event.target.value);
 			let min = parseInt(event.target.min), max = parseInt(event.target.max);
 
-			if(keyIndex != -1 && (isNaN(min) || value > min) && (isNaN(max) || value < max)){
+			if(keyIndex != -1 && [isNaN(max) || value < max, isNaN(min) || value > min][keyIndex]){
 				event.target.value = value + (-1) ** keyIndex;
+				if(event.target != addInput) event.target.dispatchEvent(new InputEvent("change"));
+
 				event.preventDefault();
 			}
 		});

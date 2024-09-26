@@ -107,9 +107,14 @@ function initialise(){
 	addInput.value = 0;
 
 	autosaveInput.value = preferences["autosave"]["interval"] || DEFAULT_PREFERENCES["autosave"]["interval"];
+
 	longClickIntervalInput.value = preferences["longclick"]["interval"] || DEFAULT_PREFERENCES["longclick"]["interval"];
 	longClickStartInput.value = preferences["longclick"]["start"] || DEFAULT_PREFERENCES["longclick"]["start"];
 	longClickEndInput.value = preferences["longclick"]["end"] || DEFAULT_PREFERENCES["longclick"]["end"];
+
+	longClickStartInput.max = longClickEndInput.value;
+	longClickEndInput.min = longClickStartInput.value;
+	
 	modeInput.value = preferences["appearance"]["display-mode"] || DEFAULT_PREFERENCES["appearance"]["display-mode"];
 
 	syncDisplay();
