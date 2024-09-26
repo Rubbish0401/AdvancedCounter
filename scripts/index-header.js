@@ -155,9 +155,11 @@ function longClickStart(limit, func, endFunc){
 
 function longClickCounting(limit, func, endFunc){
 	longClickCount++;
-	if(func) func();
 
-	if(longClickCount >= preferences["longclick"]["start"] / preferences["longclick"]["interval"]) noClickEvent = true;
+	if(longClickCount >= preferences["longclick"]["start"] / preferences["longclick"]["interval"]){
+		if(func) func();
+		noClickEvent = true;
+	}
 
 	if(limit != null && longClickCount >= limit){
 		if(endFunc) endFunc();
