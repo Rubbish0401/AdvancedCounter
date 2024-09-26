@@ -160,7 +160,6 @@ window.addEventListener("load", async function (root_event) {
 	});
 
 	// Global
-	if(isTouchable()) alert("This device is touchable");
 
 	// Initialise
 	initialise();
