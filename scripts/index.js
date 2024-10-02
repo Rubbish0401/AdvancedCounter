@@ -72,7 +72,7 @@ window.addEventListener("load", async function (root_event) {
 
 	increceBtn.addEventListener("pointerdown", function (event) {
 		longClickStart(null, function () {
-			if (data["max"] == -1 || data["count"] < data["max"]) {
+			if (event.button == 0 && data["max"] == -1 || data["count"] < data["max"]) {
 				data["count"]++;
 				syncDisplay();
 			}
@@ -85,7 +85,7 @@ window.addEventListener("load", async function (root_event) {
 
 	decreceBtn.addEventListener("pointerdown", function (event) {
 		longClickStart(null, function () {
-			if (data["count"] > 0) {
+			if (event.button == 0 && data["count"] > 0) {
 				data["count"]--;
 				syncDisplay();
 			}
