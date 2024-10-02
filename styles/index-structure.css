@@ -101,6 +101,14 @@ body * {
 .display{
 	width: fit-content;
 	height: fit-content;
+	position: absolute;
+}
+
+.add-display{
+	width: fit-content;
+	height: fit-content;
+	position: absolute;
+	transform: translateY(calc(25vmin * (3 / 4)));
 }
 
 #btn-preferences{

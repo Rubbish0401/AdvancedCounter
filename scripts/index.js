@@ -10,6 +10,7 @@ window.addEventListener("load", async function (root_event) {
 
 	displayPage = document.getElementById("page-display");
 	display = document.getElementById("display");
+	addDisplay = document.getElementById("add-display");
 	increceBtn = document.getElementById("btn-increce");
 	decreceBtn = document.getElementById("btn-decrece");
 
@@ -29,8 +30,8 @@ window.addEventListener("load", async function (root_event) {
 	// Customise Elements
 	// Display Page
 	displayPage.addEventListener("click", function (event) {
-		if (!noClickEvent && (data["max"] == -1 || data["count"] < data["max"])) {
-			data["count"]++;
+		if (!noClickEvent && (data["max"] == -1 || data["count"] + tempAddition < data["max"])) {
+			tempAddition++;
 			syncDisplay();
 		}
 
@@ -38,8 +39,8 @@ window.addEventListener("load", async function (root_event) {
 	});
 
 	displayPage.addEventListener("contextmenu", event => {
-		if (!noClickEvent && event.pointerType == "mouse" && data["count"] > 0) {
-			data["count"]--;
+		if (!noClickEvent && event.pointerType == "mouse" && data["count"] + tempAddition > 0) {
+			tempAddition--;
 			syncDisplay();
 		}
 
@@ -61,6 +62,22 @@ window.addEventListener("load", async function (root_event) {
 		}
 	});
 
+	addDisplay.addEventListener("change", event => {
+		if(addTimeout) {
+			clearTimeout(addTimeout);
+			addTimeout = null;
+		}
+		let delay = 1000;
+		
+		if(tempAddition != 0) addTimeout = this.setTimeout(function(){
+			data["count"] += tempAddition;
+			tempAddition = 0;
+
+			syncDisplay();
+			addTimeout = null;
+		}, delay);
+	});
+
 	peferencesBtn.addEventListener("click", function (event) {
 		back.classList.remove("page0");
 		back.classList.add("page1");
@@ -72,8 +89,8 @@ window.addEventListener("load", async function (root_event) {
 
 	increceBtn.addEventListener("pointerdown", function (event) {
 		longClickStart(null, function () {
-			if (event.button == 0 && data["max"] == -1 || data["count"] < data["max"]) {
-				data["count"]++;
+			if (event.button == 0 && data["max"] == -1 || data["count"] + tempAddition < data["max"]) {
+				tempAddition++;
 				syncDisplay();
 			}
 		});
@@ -85,8 +102,8 @@ window.addEventListener("load", async function (root_event) {
 
 	decreceBtn.addEventListener("pointerdown", function (event) {
 		longClickStart(null, function () {
-			if (event.button == 0 && data["count"] > 0) {
-				data["count"]--;
+			if (event.button == 0 && data["count"] + tempAddition > 0) {
+				tempAddition--;
 				syncDisplay();
 			}
 		});

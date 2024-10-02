@@ -19,6 +19,7 @@ var back;
 
 var displayPage;
 var display;
+var addDisplay;
 var increceBtn;
 var decreceBtn;
 
@@ -43,6 +44,9 @@ var noClickEvent = false;
 
 var autoSaveCount = 0;
 var autoSaveInterval;
+
+var tempAddition = 0;
+var addTimeout;
 
 // Functions
 function fillChars(text = "", length = 0, char = "0", direction = 0) {
@@ -140,8 +144,11 @@ function syncDisplay(){
 		rate * (1 - rate) == 0 ? rate : fillChars(String(Math.floor(rate * 10 ** 8) / 10 ** 8), 10, "0", 1),
 		`${[fillChars(String(percentage).split(".")[0], 2, "0", 0), fillChars(String(percentage).split(".")[1], 2, "0", 1)].join(".")}%`,
 	][preferences["appearance"]["display-mode"]];
+	addDisplay.innerText = tempAddition == 0 ? "" : ["-", "+"][1 * (tempAddition > 0)] + Math.abs(tempAddition);
 	countInput.value = data["count"];
 	maxInput.value = data["max"];
+
+	addDisplay.dispatchEvent(new InputEvent("change"));
 }
 
 function startAutoSave(){

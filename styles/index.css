@@ -31,3 +31,9 @@
 .displaymode-3{
 	font-size: 25vmin;
 }
+
+.add-display{
+	text-align: center;
+	font-size: 10vmin;
+	color: #EA4335;
+}
