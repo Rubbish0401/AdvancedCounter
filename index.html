@@ -2,6 +2,7 @@
 
 <head>
 	<!-- Google tag (gtag.js) -->
+	<meta name="google-adsense-account" content="ca-pub-8799987832232140">
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-BH8QRLY634"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
@@ -23,104 +24,40 @@
 		rel="stylesheet">
 
 	<!-- Styles -->
+	<link rel="stylesheet" href="styles/global-initialise.css">
 	<link rel="stylesheet" href="styles/index-structure.css">
 	<link rel="stylesheet" href="styles/index-structure_mobile.css">
-	<link rel="stylesheet" href="styles/index.css">
+	<link rel="stylesheet" href="styles/index-face.css">
 
 	<!-- Scripts -->
 	<script src="scripts/index-header.js"></script>
-	<script src="scripts/index.js"></script>
+	<script src="scripts/index.js" type="module"></script>
+
+	<!-- Others -->
+	<link rel="icon" href="src/images/svg/touch_white.svg">
+	<title>
+		Advanced Counter
+	</title>
 
 </head>
 
 <body>
-	<div id="back" class="back page0">
-		<div id="page-display" class="page display-page">
-			<span id="display" class="display"></span>
-			<span id="add-display" class="add-display"></span>
-
-			<img id="btn-preferences" class="img-btn" src="src/svg/setting.svg">
-			<img id="btn-increce" class="img-btn" src="src/svg/up.svg">
-			<img id="btn-decrece" class="img-btn" src="src/svg/down.svg">
-		</div>
-
-		<div class="page preferences-page">
-			<div class="preferences-pane">
-				<span class="preferences-label">
-					Data Edit
-				</span>
-				<div class="preferences-block">
-					<label for="input-count" class="input-label">
-						Count
-					</label>
-					<input id="input-count" class="value-input" type="text" inputmode="numeric" min="0" step="1" enterkeyhint="done">
-					<input id="input-add" class="value-input" type="text" inputmode="numeric" step="1" enterkeyhint="done">
-
-					<br>
-
-					<label for="input-max" class="input-label">
-						Max
-					</label>
-					<input id="input-max" class="value-input" type="text" inputmode="numeric" min="-1" step="1" enterkeyhint="done">
-
-					<br>
-
-					<span>
-						If max equals to -1, there's no limit to count.
-					</span>
-				</div>
-
-				<span class="preferences-label">
-					Preferences
-				</span>
-
-				<span class="preferences-label-small">
-					System
-				</span>
-				<div class="preferences-block">
-					<label for="input-autosave-interval" class="input-label">
-						Autosave
-					</label>
-					<input id="input-autosave-interval" class="value-input" type="text" inputmode="numeric" min="10" step="1" enterkeyhint="done">
-
-					<br>
-
-					<label for="input-longclick-interval" class="input-label">
-						LClick Interval
-					</label>
-					<input id="input-longclick-interval" class="value-input" type="text" inputmode="numeric" min="10" step="1" enterkeyhint="done">
-
-					<br>
-
-					<label for="input-longclick-start" class="input-label">
-						LClick Start
-					</label>
-					<input id="input-longclick-start" class="value-input" type="text" inputmode="numeric" min="10" step="1" enterkeyhint="done">
-
-					<br>
-
-					<label for="input-longclick-end" class="input-label">
-						LClick End
-					</label>
-					<input id="input-longclick-end" class="value-input" type="text" inputmode="numeric" min="10" step="1" enterkeyhint="done">
-
-					<br>
-
-					<label for="select-mode" class="input-label">
-						Display Mode
-					</label>
-					<select id="select-mode" class="value-input">
-						<option value="0">Just Count</option>
-						<option value="1">Count / Max</option>
-						<option value="2">Value of Count / Max</option>
-						<option value="3">Value of Count / Max as percentage</option>
-					</select>
-				</div>
-			</div>
-
-			<img id="btn-back" class="img-btn" src="src/svg/back.svg">
-		</div>
+	<div id="back" class="back">
+		<div id="display" class="display displaymode-0"></div>
 	</div>
+
+	<svg id="btn-preferences" class="floating-btn" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+		<path
+			d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z" />
+	</svg>
+
+	<svg id="btn-up" class="floating-btn" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+		<path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z" />
+	</svg>
+
+	<svg id="btn-down" class="floating-btn" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+		<path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
+	</svg>
 </body>
 
 </html>

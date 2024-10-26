@@ -1,0 +1,114 @@
+body{
+	overflow-y: auto;
+}
+
+.back{
+	max-width: 540px;
+	width: 100%;
+	height: fit-content;
+	min-height: 100vh;
+
+	margin: 0 auto;
+	padding: 16px;
+}
+
+/* Labels */
+.label-largest{
+	font-size: 20px;
+	margin-top: 16px;
+}
+
+.label-largest:first-child{
+	margin-top: 0px;
+}
+
+.label-larger{
+	font-size: 18px;
+	margin-top: 4px;
+}
+
+.label-larger:first-child{
+	margin-top: 0px;
+}
+
+.label-row{
+	font-size: 14px;
+}
+
+.label-row{
+	margin: 0 16px;
+}
+
+/* Row */
+.pref-row{
+	width: 100%;
+	height: fit-content;
+
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+/* Block */
+.pref-block, .pref-subblock{
+	width: 100%;
+	height: fit-content;
+}
+
+.pref-block{
+	display: block;
+}
+
+.indent{
+	padding: 0px 4px;
+}
+
+/* Input */
+.input-part{
+	margin: 2px 4px;
+	outline: none;
+	font-size: 14px;
+}
+
+.input-label{
+	width: 104px;
+	min-width: 104px;
+}
+
+.input-select{
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+
+.input-basic{
+	width: 100%;
+}
+
+.input-sub{
+	width: 128px;
+}
+
+.input-basic, .input-sub{
+	padding: 2px 4px;
+	border: 1px solid #000000;
+}
+
+.input-basic:focus, .input-sub:focus{
+	border: 1px solid #C00000;
+}
+
+.input-check{
+	width: 24px;
+	height: 24px;
+}
+
+/* Others */
+.btn-reset-pref{
+	width: fit-content;
+	height: fit-content;
+	display: block;
+
+	margin: 4px auto;
+	padding: 2px 8px;
+}

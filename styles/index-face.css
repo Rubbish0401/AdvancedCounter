@@ -1,0 +1,33 @@
+body{
+	background: transparent;
+}
+
+/* Display Page */
+.display{
+	text-align: center;
+	vertical-align: middle;
+	font-size: 25vmin;
+}
+
+.displaymode-0{
+	font-size: 25vmin;
+}
+
+/* Floating Button */
+body:hover .floating-btn{
+	opacity: 1;
+}
+
+.floating-btn{
+	padding: 8px;
+	border-radius: 50%;
+
+	opacity: 0;
+	background: #00000000;
+
+	transition: opacity 0.5s, background 0.5s;
+}
+
+.floating-btn:hover{
+	background: #00000010;
+}

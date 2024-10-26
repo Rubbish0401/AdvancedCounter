@@ -1,0 +1,120 @@
+<html>
+
+<head>
+	<!-- Google tag (gtag.js) -->
+	<meta name="google-adsense-account" content="ca-pub-8799987832232140">
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-BH8QRLY634"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-BH8QRLY634');
+	</script>
+
+	<!-- Viewport and Charset -->
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
+	<meta charset="utf-8" />
+
+	<!-- External Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Serif+JP:wght@200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+		rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="styles/global-initialise.css">
+	<link rel="stylesheet" href="styles/controller/controller-structure.css">
+	<link rel="stylesheet" href="styles/controller/controller-face.css">
+
+	<!-- Scripts -->
+	<script src="scripts/controller/controller-header.js"></script>
+	<script src="scripts/controller/controller.js" type="module"></script>
+
+	<!-- Others -->
+	<link rel="icon" href="src/images/svg/touch_white.svg">
+	<title>
+		Advanced Counter Controller
+	</title>
+</head>
+
+<body>
+	<div class="back">
+		<div class="pref-block label-largest">
+			Data Edit
+		</div>
+		<div class="pref-block indent">
+			<div class="pref-block label-larger">
+				Data
+			</div>
+			<div class="pref-block indent">
+				<div class="pref-row pref-subblock">
+					<span class="label-row input-part input-label">
+						Max
+					</span>
+					<input id="input-max" class="input-part input-basic" placeholder="Max" type="text" inputmode="numeric" min="-1" step="1" enterkeyhint="done" autocomplete="off">
+				</div>
+	
+				<div class="pref-row pref-subblock">
+					<span class="label-row input-part input-label">
+						Count
+					</span>
+					
+					<input id="input-count" class="input-part input-basic" placeholder="Count" type="text" inputmode="numeric" min="-1" step="1" enterkeyhint="done" autocomplete="off">
+					<input id="input-add" class="input-part" placeholder="Add" type="text" inputmode="numeric" min="-1" step="1" enterkeyhint="done" autocomplete="off">
+				</div>
+	
+				<div class="pref-row">
+					If max is negative, there's no limit to count.
+				</div>
+			</div>
+		</div>
+
+		<div class="pref-block label-largest">
+			Preferences
+		</div>
+		<div class="pref-block indent">
+			<div class="pref-block label-larger">
+				Appearance
+			</div>
+			<div class="pref-row pref-subblock indent">
+				<span class="label-row input-part input-label">
+					Background
+				</span>
+				<input id="input-background" class="input-part input-basic" placeholder="Background" type="color" enterkeyhint="done" autocomplete="off">
+				<input id="input-bgvisible" class="input-part input-check" type="checkbox" title="Background Visibility">
+			</div>
+
+			<div class="pref-row pref-subblock indent">
+				<span class="label-row input-part input-label">
+					Colour
+				</span>
+				<input id="input-colour" class="input-part input-basic" type="color">
+			</div>
+
+			<div class="pref-block label-larger">
+				Longclick
+			</div>
+
+			<div class="pref-row pref-subblock indent">
+				<span class="label-row input-part input-label">
+					Start
+				</span>
+				<input id="input-longclick-start" class="input-part input-basic" placeholder="Longclick start (in milli-seconds)" type="text" inputmode="numeric" min="-1" step="1" enterkeyhint="done" autocomplete="off">
+			</div>
+
+			<div class="pref-row pref-subblock indent" style="display: none">
+				<span class="label-row input-part input-label">
+					End
+				</span>
+				<input id="input-longclick-end" class="input-part input-basic" placeholder="Longclick end (in milli-seconds)" type="text" inputmode="numeric" min="-1" step="1" enterkeyhint="done" autocomplete="off">
+			</div>
+
+			<button id="btn-reset-pref" class="btn-reset-pref"> Reset Preferences </button>
+
+		</div>
+	</div>
+</body>
+
+</html>
