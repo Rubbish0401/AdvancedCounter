@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", root_event => {
 
 	for(let btn of [increaseBtn, decreaseBtn]){
 		btn.addEventListener("pointerdown", event => {
-			if(event.buttons == 1 || event.buttons == 2){
+			if(event.buttons === 1 || event.buttons === 2){
 				let index = [increaseBtn, decreaseBtn].indexOf(event.target);
 				if(!longclickTimeout) longclickTimeout = setTimeout(() => {
 					if(!longclickInterval) longclickInterval = setInterval(() => {
@@ -71,6 +71,12 @@ document.addEventListener("DOMContentLoaded", root_event => {
 			if(longclickTimeout){
 				clearTimeout(longclickTimeout);
 				longclickTimeout = null;
+
+				if(event.isTrusted && (event.button === 0 || event.button === 2)){
+					let index = [increaseBtn, decreaseBtn].indexOf(event.currentTarget);
+					console.log(index, event.button);
+					data.counter.addCount((-1) ** (index + event.button / 2));
+				}
 			}
 
 			if(longclickInterval){
