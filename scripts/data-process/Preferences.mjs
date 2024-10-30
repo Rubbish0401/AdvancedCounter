@@ -34,17 +34,15 @@ export class Preferences{
 	importObject(obj){
 		let before = this.toObject();
 		if(obj){
-			switch(true){
-				case obj.appearance && typeof obj.appearance == "object":
-					if(obj.appearance.hasOwnProperty("background")) this.#appearance.background = String(obj.appearance.background);
-					if(obj.appearance.hasOwnProperty("bgvisible")) this.#appearance.bgvisible = Boolean(obj.appearance.bgvisible);
-					if(obj.appearance.hasOwnProperty("colour")) this.#appearance.colour = String(obj.appearance.colour);
-					break;
+			if(typeof obj.appearance == "object"){
+				if(obj.appearance.hasOwnProperty("background")) this.#appearance.background = String(obj.appearance.background);
+				if(obj.appearance.hasOwnProperty("bgvisible")) this.#appearance.bgvisible = Boolean(obj.appearance.bgvisible);
+				if(obj.appearance.hasOwnProperty("colour")) this.#appearance.colour = String(obj.appearance.colour);
+			}
 
-				case obj.longclick && typeof obj.longclick == "object":
-					if(obj.longclick.hasOwnProperty("start") && !isNaN(obj.longclick.start)) this.#longclick.start = parseInt(obj.longclick.start);
-					if(obj.longclick.hasOwnProperty("end") && !isNaN(obj.longclick.end )) this.#longclick.end = parseInt(obj.longclick.end);
-					break;
+			if(typeof obj.longclick == "object"){
+				if(obj.longclick.hasOwnProperty("start") && !isNaN(obj.longclick.start)) this.#longclick.start = parseInt(obj.longclick.start);
+				if(obj.longclick.hasOwnProperty("end") && !isNaN(obj.longclick.end )) this.#longclick.end = parseInt(obj.longclick.end);
 			}
 
 			let after = this.toObject();
